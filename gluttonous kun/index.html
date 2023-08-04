@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background-image: url('source/picture/ikun.jpg');
+                 }
+			.box1{
+					width: 460px;
+				    height: 350px;
+				    margin: 30px auto;
+					text-align: center;
+					font-size: 100px;
+			}
+			#title{
+				font-weight: bolder;
+				animation: dance 1s infinite;
+				border-radius: 5%;
+				box-shadow: grey 0px 0px 10px;
+			}
+			#start{
+				width: 200px;
+				height: 50px;
+				margin: 200px auto;
+				background-color: deepskyblue;				
+				border-radius: 10px;
+				font-size: 20px;
+				box-shadow: grey 0px 0px 10px;
+				transition: 1s width height 500ms;
+				border: 0px;
+			}
+			#start:hover{
+				width: 150px;
+				height: 150px;
+				animation: dance 1s infinite ;
+			}
+			@keyframes dance{
+				0%{
+					transform: scale(1, 1) skew(0deg, 0deg);
+				}
+				25%{
+					transform: scale(1, 0.9) skew(-10deg, 0deg);
+				}
+				50%{
+					transform: scale(1, 1) skew(0deg, 0deg);
+				}
+				75%{
+					transform: scale(0.9, 1.2) skew(-15deg, 0deg);
+				}
+				100%{
+					transform: scale(1, 1) skew(0deg, 0deg);
+				}
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+			var start = document.getElementById("start");
+			start.onclick = function(){
+				window.location.assign('source/提醒.html');
+			   };
+			};
+		</script>
+	</head>
+	<body>
+		<div class="box1">
+			<div id = "title">贪吃坤</div>
+			<button id = "start">开始游戏</button>
+		</div>
+	</body>
+</html>

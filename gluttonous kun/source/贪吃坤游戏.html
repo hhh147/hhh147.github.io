@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+		<!-- css代码 -->
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			/* 设置主窗口样式 */
+			#main{
+				width: 1000px;
+				height: 650px;
+				border: aqua 10px solid;
+				background-color: lightskyblue;
+				border-radius: 20px;
+				margin: 50px auto;
+			}
+			/* 设置map样式 */
+			#map{
+				width: 950px;
+				height: 530px;
+				background-image: url('picture/map.jpg');
+				border: aqua 10px solid;
+				margin: 20px auto;
+				position: relative;
+			}
+			/* 设置分数样式 */
+			#info{
+				width: 960px;
+				margin: 0 auto;
+				font-size: 30px;
+				text-align: center;
+			}
+			/* 设置篮球样式 */
+			#basketball{
+				width: 30px;
+				height: 30px;
+				background-image: url('picture/篮球.jpg');
+				position: absolute;
+				top: 100px;
+				left: 100px;
+			}
+			/* 设置坤坤样式 */
+			#kunkun > div {
+				width: 30px;
+				height: 30px;
+				 background-image: url('picture/kun.jpg'); 
+				position: absolute;
+			 }
+			 #control{
+				 display: flex;
+				 justify-content: center;
+			 }
+			.control_key{
+				width: 10vw;
+				height: 13vh;
+				background-color: cyan;
+				text-align: center;
+				font-size: 3em;
+				line-height: 200%;
+				font-weight: bolder;
+			}
+			#w{
+				margin: auto auto;
+			}
+			#ctrl{
+				margin: auto auto;
+			}
+		</style>
+	</head>
+	<body>
+		<audio id = "ngm" src = "sound/你干嘛.mp3"></audio>
+		<audio id = "ctrl" src="sound/ctrl.mp3"></audio>
+		<audio id = "坤叫" src="sound/坤叫.mp3"></audio>
+		<!-- 主窗口 -->
+		<!-- 地图大小：960 540 -->
+		<div id="main">
+			<div id="map">
+				<div id="kunkun">
+					<div></div>
+				</div>
+				<div id="basketball"></div>
+			</div>
+			<div id="info">
+				篮球数:<span id="score">0</span>
+			</div>
+		</div>
+		<div id="w" class="control_key">w</div>
+		<div id="control">
+			<div id="a" class="control_key">a</div>
+			<div id="s" class="control_key">s</div>
+			<div id="d" class="control_key">d</div>
+		</div>
+		<div id="ctrl" class="control_key">ctrl</div>
+		
+		<!-- js代码 -->
+		<script type="text/javascript">
+			//设置方向
+			let dir;
+			let over = 0;
+			//设置速度
+			var speed = 30;
+			// 获取坤坤
+			const kunkun = document.getElementById("kunkun");
+			// 获取坤坤各个部分
+			const kunkuns = kunkun.getElementsByTagName("div");
+			//获取篮球个数
+			const scorespan = document.getElementById("score");
+			let score = 0;
+			// 获取篮球，且篮球横坐标在0~930，纵坐标在0~530
+			const basketball = document.getElementById("basketball");
+			// 改变篮球位置
+			function changebasketball() {
+				//生成随机数
+				const x = Math.floor(Math.random()*90)*10;
+				const y = Math.floor(Math.random()*50)*10;
+				//设置篮球坐标
+				basketball.style.left = x + "px";
+				basketball.style.top = y + "px";
+			};
+			//禁止坤坤调头：方向不一致时，不变
+			const reobj = {
+				w: "s",
+				s: "w",
+				a: "d",
+				d: "a",
+			}
+			
+			let control_key = [];
+			control_key = document.getElementsByClassName("control_key");
+			for (let count = 0; count < 5; count++){
+				control_key[count].onclick =()=>{
+					if(control_key[count].innerText == "w"||control_key[count].innerText == "a"||control_key[count].innerText == "s"||control_key[count].innerText == "d"||control_key[count].innerText == "f"){
+						if(kunkuns.length < 2 || reobj[dir] != control_key[count].innerText){
+							dir = control_key[count].innerText;
+						}
+					}
+					
+					// ctrl
+					if(control_key[count].innerText == 'ctrl'){
+						document.getElementById("ctrl").play();
+					}
+				}
+			}
+			
+			
+			// 绑定按键事件
+			document.onkeydown = function(event){
+				if(event.key == "w"||event.key == "a"||event.key == "s"||event.key == "d"||event.key == "f"){
+					if(kunkuns.length < 2 || reobj[dir] != event.key){
+						dir = event.key;
+					}
+				}
+				
+				// ctrl
+				if(event.ctrlKey){
+					document.getElementById("ctrl").play();
+				}
+			}
+			
+			// 坤坤移动
+			//要让坤坤身体和头一起运动，只需要在坤坤移动时，将坤坤尾放到坤坤头之前
+			let move = setInterval(function(){
+			// 获取坤坤头
+			const head = kunkuns[0];
+			//坤坤头坐标
+			let x = head.offsetLeft;
+			let y = head.offsetTop;
+				switch(dir){
+					case "w":
+					y -= speed;
+					break;
+					case "a":
+					x -= speed;
+					break;
+					case "s":
+					y += speed;
+					break;
+					case "d":
+					x += speed;
+					break;
+					case "f":
+					dir = 0;
+					break;
+				}
+				if(over == 1){
+				document.getElementById("ngm").play();
+				clearInterval(move);
+				alert("您坤了");
+				window.history.go(0);
+				over = 0;
+			}
+				// 检查坤坤是否拿到篮球
+				if((head.offsetTop>basketball.offsetTop-30&&
+				   head.offsetTop<basketball.offsetTop+30)&&
+				   (head.offsetLeft>basketball.offsetLeft-30&&
+				      head.offsetLeft<basketball.offsetLeft+30)
+				   ){
+					document.getElementById("坤叫").play();
+					score += 0.5;
+					scorespan.textContent = score;
+					changebasketball();
+					kunkun.insertAdjacentHTML("beforeend", "<div></div>");
+				}
+				// 获取坤坤尾
+				//游戏结束
+				if(x < 0 || x > 920 || y < 0 || y >500){
+					over = 1;
+					return over;
+				}
+				
+				for(let i = 0; i < kunkuns.length-1;i++){
+					if(
+					kunkuns[i].offsetLeft == x &&
+					kunkuns[i].offsetTop == y
+					){
+						over = 1;
+						return over;
+					}
+				}
+				const tail = kunkuns[kunkuns.length-1];
+				//移动坤坤尾巴位置
+				tail.style.left = x +"px";
+				tail.style.top = y +"px";
+				//将坤坤尾移动到坤坤头的位置
+				kunkun.insertAdjacentElement("afterbegin",tail);
+			}, 300);
+			
+		</script>
+	</body>
+</html>
