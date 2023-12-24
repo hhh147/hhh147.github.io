@@ -1,0 +1,148 @@
+body{
+	margin: 0px;
+	padding: 0px;
+}
+#header{
+	width: 100%;
+	height: 50px;
+	box-shadow: 0px 0px 2px grey;
+}
+#left{
+	float: left;
+	height: 50%;
+	width: 9%;
+	display: flex;
+	justify-content: space-between;
+	margin-top: 1%;
+	margin-left: 5%;
+}
+#logo{
+	display: flex;
+	justify-content: space-between;
+	height: 100%;
+	width: 5%;
+	font-weight: bold;
+	font-size: 1.25rem;
+}
+#search{
+	height: 100%;
+	width: 5%;
+	margin-top: 2%;
+}
+a{
+	text-decoration: none;
+	list-style: none;
+	color: black;
+}
+#right{
+	float: right;
+	margin-right: 3%;
+}
+#u>li{
+	margin-right: 3em;
+	float: right;
+	list-style: none;
+	margin-top: 0.7%;
+	font-size: 13px;
+}
+a:hover{
+	color: #b2cca7;
+}
+.aa{
+	display: block;
+	padding: 1px 20px;
+}
+.content{
+	position: absolute;
+	min-height: 100px;
+	min-width: 100px;
+	box-shadow: 0px 0px 2px grey;
+	border-radius: 5px;
+	z-index: 1;
+	text-align: center;
+	line-height: 255%;
+	display: none;
+	background-color: white;
+	margin-top: 0.2%;
+}
+li:hover .content{
+	display: block;
+}
+.content:hover{
+	display: block;
+}
+#t1{
+	font-size: 75px;
+	font-weight: bolder;
+	background-image: linear-gradient(to bottom right, #47ff56, blue);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	margin-left: 43%;
+	margin-top: 5%;
+}
+#t2{
+	font-size: 75px;
+	font-weight: bolder;
+	margin-left: 32%;
+	margin-bottom: 1%;
+}
+#t3{
+	font-size: 23px;
+	color: grey;
+	margin-left: 32%;
+	margin-bottom: 3%;
+}
+#start{
+	padding: 0.6em 1em;
+	background-color: #42b883;
+	border-radius: 10px;
+	font-size: 16px;
+	font-weight: bold;
+	color: white;
+	margin-left: 44.3%;
+	position: relative;
+	margin-top: 30%;
+}
+#start:hover{
+	background-color: green;
+}
+#install{
+	padding: 0.6em 1.2em;
+	border-radius: 10px;
+	background-color: whitesmoke;
+	margin-left: 1%;
+	color: black;
+}
+#install:hover{
+	background-color: floralwhite;
+}
+#mid{
+	width: 100%;
+	height: 70px;
+	margin-top: 5%;
+	text-align: center;
+	color: grey;
+	font-size: 13.5px;
+	line-height: 500%;
+	box-shadow: 0px 0px 1px grey;
+}
+#undermid{
+	width: 60%;
+	height: 200px;
+	margin: auto;
+	margin-top: 3%;
+}
+#con{
+	width: 25%;
+	height: 90%;
+	text-align: center;
+	display: inline-block;
+	margin-left: 6%;
+	color: grey;
+	text-align: left;
+}
+.title{
+	font-size: 20px;
+	color: black;
+	font-weight: bold;
+}
