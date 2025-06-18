@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>花里胡哨图片展</title>
+  <style>
+    /* 全局 reset + 基础动画 */
+    * {
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+      font-family: "华文彩云", sans-serif; /* 花里胡哨字体 */
+    }
+    body {
+      background: linear-gradient(45deg, #ff00cc, #3333ff, #00ff99);
+      background-size: 400% 400%;
+      animation: gradientMove 10s ease infinite;
+      overflow-x: hidden;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0 50%; }
+    }
+
+    /* 标题特效 */
+    .title {
+      text-align: center;
+      font-size: 48px;
+      color: #fff;
+      text-shadow: 0 0 20px #ffeb3b, 0 0 40px #ffc107;
+      margin: 50px 0;
+      animation: float 3s infinite alternate;
+    }
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-20px); }
+    }
+
+    /* 图片容器：3D 翻转 + 晃动 */
+    .image-container {
+      width: 80%;
+      margin: 0 auto 80px;
+      perspective: 1000px;
+    }
+    .image-box {
+      width: 100%;
+      height: 600px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      box-shadow: 0 0 50px rgba(255,255,255,0.5);
+      transform: rotateX(10deg) rotateY(5deg);
+      transition: all 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      animation: shake 5s infinite;
+    }
+    @keyframes shake {
+      0%,100% { transform: rotateX(10deg) rotateY(5deg) translateX(0); }
+      25% { transform: rotateX(12deg) rotateY(8deg) translateX(-5px); }
+      50% { transform: rotateX(8deg) rotateY(3deg) translateX(5px); }
+      75% { transform: rotateX(11deg) rotateY(6deg) translateX(-3px); }
+    }
+    .image-box img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+      transition: transform 0.5s ease;
+    }
+    .image-box:hover {
+      transform: rotateX(0) rotateY(0);
+      box-shadow: 0 0 80px rgba(255,255,255,0.8);
+    }
+    .image-box:hover img {
+      transform: scale(1.1);
+    }
+
+    /* 底部点缀：闪烁星星 */
+    .star {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #fff;
+      animation: blink 2s infinite;
+      z-index: -1;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    /* 随机星星位置（可多复制几个调整坐标） */
+    .star1 { top: 20%; left: 10%; }
+    .star2 { top: 60%; left: 85%; }
+    .star3 { top: 35%; left: 25%; }
+  </style>
+</head>
+<body>
+  <h1 class="title">超级美男子图片大赏</h1>
+  
+  <div class="image-container">
+    <div class="image-box">
+      <img src="./images/01.jpg" alt="./images/01.jpg">
+    </div>
+  </div>
+
+  <div class="image-container">
+    <div class="image-box">
+      <img src="./images/02.jpg" alt="./images/02.jpg">
+    </div>
+  </div>
+
+  <div class="image-container">
+    <div class="image-box">
+      <img src="./images/03.jpg" alt="./images/03.jpg">
+    </div>
+  </div>
+
+  <!-- 星星点缀 -->
+  <div class="star star1"></div>
+  <div class="star star2"></div>
+  <div class="star star3"></div>
+
+  <script>
+    // 可再加 JS 动态生成更多星星，这里简单写死几个
+    for (let i = 4; i <= 10; i++) {
+      const star = document.createElement('div');
+      star.className = `star star${i}`;
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      document.body.appendChild(star);
+    }
+  </script>
+</body>
+</html>
